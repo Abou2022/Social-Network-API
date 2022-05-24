@@ -1,14 +1,16 @@
-const { Schema, model } = require('mongoose');
-const assignmentSchema = require('./Assignment');
+const { Schema, model, Types } = require('mongoose');
+// const assignmentSchema = require('./Assignment');
+
 
 // Schema to create Student model
-const studentSchema = new Schema(
+const ThoughtsSchema = new Schema(
   {
     thoughtText: {
       type: String,
       required: true,
-      maxlength: 280,
       minlength: 1,
+      maxlength: 280,
+      
     },
     createdAt: {
       type: Date,
@@ -19,12 +21,7 @@ const studentSchema = new Schema(
         type: String,
         required:true,
     },
-    reactions:[
-        {
-            
-        }
-    ]
-    
+    reactions: [ReactionSchema]
   },
   {
     toJSON: {
@@ -33,6 +30,38 @@ const studentSchema = new Schema(
   }
 );
 
-const Student = model('student', studentSchema);
 
-module.exports = Student;
+const ReactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Type.ObjectId()
+    },
+
+    reactionBody: {
+      type: String,
+      required: true,
+      maxlength:280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: createdAtVal => dateFormat(createdAtVal)
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
+);
+
+
+
+const Thoughts = model('Thoughts', ThoughtsSchema);
+
+module.exports = Thoughts;
