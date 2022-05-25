@@ -1,20 +1,19 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model, Types } = require("mongoose");
 // const assignmentSchema = require('./Assignment');
 // const dateFormat = require('../utils/dateFormat')
 const moment = require("moment");
-
 
 const ReactionSchema = new Schema(
   {
     reactionId: {
       type: Schema.Types.ObjectId,
-      default: () => new Type.ObjectId()
+      default: () => new Types.ObjectId(),
     },
 
     reactionBody: {
       type: String,
       required: true,
-      maxlength:280,
+      maxlength: 280,
     },
     username: {
       type: String,
@@ -48,7 +47,6 @@ const ThoughtsSchema = new Schema(
       required: true,
       minlength: 1,
       maxlength: 280,
-      
     },
     // createdAt: {
     //   type: Date,
@@ -63,10 +61,10 @@ const ThoughtsSchema = new Schema(
       },
     },
     username: {
-        type: String,
-        required:true,
+      type: String,
+      required: true,
     },
-    reactions: [ReactionSchema]
+    reactions: [ReactionSchema],
   },
   {
     toJSON: {
@@ -75,10 +73,6 @@ const ThoughtsSchema = new Schema(
   }
 );
 
-
-
-
-
-const Thoughts = model('Thoughts', ThoughtsSchema);
+const Thoughts = model("Thoughts", ThoughtsSchema);
 
 module.exports = Thoughts;

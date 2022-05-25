@@ -14,24 +14,25 @@ connection.once("open", async () => {
   const thoughts = [
     {
       thoughtText: "Here's a cool thought...",
-      username: "lern",
+      username: "lora",
       reactions: [{ reactionBody: "nice" }],
     },
     {
-      thoughtText: "Super.",
-      username: "lern",
+      thoughtText: "Super",
+      username: "lora",
       reactions: [],
     },
   ];
 
   const users = [
     {
-      username: "jinyi",
-      email: "jinyi@gmail.com",
+      username: "lernantino",
+      email: "lernantino@gmail.com",
       // thoughts: [...thoughts],
       thoughts: [],
     },
-    { username: "luke", email: "luke@gmail.com", thoughts: [] },
+
+    { username: "janes", email: "janes@gmail.com", thoughts: [] },
   ];
   // Add thoughts to the collection and await the results
   await Thought.collection.insertMany(thoughts);
