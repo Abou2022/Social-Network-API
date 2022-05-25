@@ -11,12 +11,12 @@ thoughtsControllers = {
             .select('-__v')
             .then(dbThoughtsData => {
                 res.json(dbThoughtsData);
-            })
-            .catch(err => {
+            }).catch(err => {
                 console.log(err);
                 res.status(500).json(err);
             });
     },
+    
     getThoughtsById({ params }, res) {
         Thoughts.findOne({ _id: params.id })
             .populate({

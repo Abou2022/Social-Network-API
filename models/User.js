@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
-// const assignmentSchema = require('./Assignment');
+
+const thoughtSchema = require("./Thought");
+// const { isEmail } = require("validator");
 
 // Schema to create Student model
 const userSchema = new Schema(
@@ -10,16 +12,26 @@ const userSchema = new Schema(
       required: true,
       trim: true,
     },
+    // email: {
+    //   type: String,
+    //   unique:true,
+    //   required: true,
+    //   validate: {
+    //     validator: function (v) {
+    //         return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
+    //     },
+    //     message: props => `${props.value} is not a valid email!`
+    // }
+    // },
     email: {
       type: String,
-      unique:true,
       required: true,
+      unique: true,
       validate: {
-        validator: function (v) {
-            return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
+        validator: function (value) {
+          return isEmail(value);
         },
-        message: props => `${props.value} is not a valid email!`
-    }
+      },
     },
     thoughts:[
       {
@@ -34,7 +46,6 @@ const userSchema = new Schema(
       }
     ],
    
-    assignments: [assignmentSchema],
   },
   {
     toJSON: {
@@ -42,7 +53,7 @@ const userSchema = new Schema(
     },
   }
 );
-userSchema.virtua('friendCount').get(function(){
+userSchema.virtual("friendCount").get(function(){
   return this.friends.length;
 })
 const User = model('Usert', userSchema);
