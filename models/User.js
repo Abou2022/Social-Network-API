@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 // const thoughtSchema = require("./Thought");
 // const { isEmail } = require("validator");
@@ -12,40 +12,39 @@ const userSchema = new Schema(
       required: true,
       trim: true,
     },
-    // email: {
-    //   type: String,
-    //   unique:true,
-    //   required: true,
-    //   validate: {
-    //     validator: function (v) {
-    //         return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
-    //     },
-    //     message: props => `${props.value} is not a valid email!`
-    // }
-    // },
     email: {
       type: String,
-      required: true,
       unique: true,
+      required: true,
       validate: {
-        validator: function (value) {
-          return isEmail(value);
+        validator: function (v) {
+          return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
         },
+        message: (props) => `${props.value} is not a valid email!`,
       },
     },
-    thoughts:[
+    // email: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    //   validate: {
+    //     validator: function (value) {
+    //       return isEmail(value);
+    //     },
+    //   },
+    // },
+    thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Thoughts'
-      }
+        ref: "Thoughts",
+      },
     ],
-    friends:[
+    friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
+        ref: "User",
+      },
     ],
-   
   },
   {
     toJSON: {
@@ -53,9 +52,9 @@ const userSchema = new Schema(
     },
   }
 );
-userSchema.virtual("friendCount").get(function(){
+userSchema.virtual("friendCount").get(function () {
   return this.friends.length;
-})
-const User = model('Usert', userSchema);
+});
+const User = model("User", userSchema);
 
 module.exports = User;
