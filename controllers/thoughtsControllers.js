@@ -1,9 +1,9 @@
-const { Thoughts, User } = require("../models");
+const { Thought, User } = require("../models");
 
 thoughtsControllers = {
   // get all thoughts
   getThoughts(req, res) {
-    Thoughts.find({})
+    Thought.find({})
       .populate({
         path: "reactions",
         select: "-__v",
@@ -19,7 +19,7 @@ thoughtsControllers = {
   },
 
   getThoughtsById({ params }, res) {
-    Thoughts.findOne({ _id: params.id })
+    Thought.findOne({ _id: params.id })
       .populate({
         path: "reactions",
         select: "-__v",
@@ -39,7 +39,7 @@ thoughtsControllers = {
   },
   //create a Thoughts
   createThoughts({ body }, res) {
-    Thoughts.create(body)
+    Thought.create(body)
       .then(({ username, _id }) => {
         return User.findOneAndUpdate(
           { username: username },
@@ -61,7 +61,7 @@ thoughtsControllers = {
   },
   //update
   updateThoughts({ body, params }, res) {
-    Thoughts.findOneAndUpdate({ _id: params.id }, body, {
+    Thought.findOneAndUpdate({ _id: params.id }, body, {
       new: true,
       runValidators: true,
     })
@@ -78,7 +78,7 @@ thoughtsControllers = {
   },
   //delete Thoughts
   deleteThoughts({ params }, res) {
-    Thoughts.findOneAndDelete({ _id: params.id })
+    Thought.findOneAndDelete({ _id: params.id })
       .then(({ username }) => {
         return User.findOneAndUpdate(
           { username: username },
@@ -100,7 +100,7 @@ thoughtsControllers = {
   },
   //create reaction
   createReaction({ params, body }, res) {
-    Thoughts.findOneAndUpdate(
+    Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $push: { reactions: body } },
       { new: true, runValidators: true }
@@ -119,7 +119,7 @@ thoughtsControllers = {
   },
   //remove reaction
   removeReaction({ params }, res) {
-    Thoughts.findOneAndUpdate(
+    Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $pull: { reactions: { reactionId: params.reactionId } } },
       { new: true }
