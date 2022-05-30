@@ -17,7 +17,7 @@ thoughtsControllers = {
         res.status(500).json(err);
       });
   },
-
+  //get thought by id
   getThoughtsById({ params }, res) {
     Thought.findOne({ _id: params.id })
       .populate({

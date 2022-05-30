@@ -1,8 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-// const thoughtSchema = require("./Thought");
-// const { isEmail } = require("validator");
-
 // Schema to create Student model
 const userSchema = new Schema(
   {
@@ -23,16 +20,7 @@ const userSchema = new Schema(
         message: (props) => `${props.value} is not a valid email!`,
       },
     },
-    // email: {
-    //   type: String,
-    //   required: true,
-    //   unique: true,
-    //   validate: {
-    //     validator: function (value) {
-    //       return isEmail(value);
-    //     },
-    //   },
-    // },
+
     thoughts: [
       {
         type: Schema.Types.ObjectId,
